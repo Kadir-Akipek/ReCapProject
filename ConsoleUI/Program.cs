@@ -19,6 +19,10 @@ namespace ConsoleUI
 
             CarDal carDal = new CarDal();//açık mavi = imza
 
+            Brand brand = new Brand();
+            Color color = new Color();
+
+
             //carDal.Add(car);
             //carDal.Update(car);
             //carDal.Delete(car);
