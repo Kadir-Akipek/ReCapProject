@@ -15,17 +15,17 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public void Add(Color color)
+        public void Add(Entities.Concrete.Color color)
         {
             _colorDal.Add(color);
         }
 
-        public void Delete(Color color)
+        public void Delete(Entities.Concrete.Color color)
         {
             _colorDal.Delete(color);
         }
 
-        public void Update(Color color)
+        public void Update(Entities.Concrete.Color color)
         {
             _colorDal.Update(color);
         }

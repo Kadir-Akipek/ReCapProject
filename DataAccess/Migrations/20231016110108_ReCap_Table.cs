@@ -2,7 +2,7 @@
 
 namespace DataAccess.Migrations
 {
-    public partial class addentity : Migration
+    public partial class ReCap_Table : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

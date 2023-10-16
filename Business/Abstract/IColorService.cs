@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Entities.Concrete;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Text;
 
 namespace Business.Abstract
@@ -10,6 +10,5 @@ namespace Business.Abstract
         void Add(Color color);
         void Delete(Color color);
         void Update(Color color);
-         
     }
 }

@@ -7,11 +7,11 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class ICarManager : ICarService
+    public class CarManager : ICarService
     {
         ICarDal _cardal;//DataAccess katmanına eriştik, injection
 
-        public ICarManager(ICarDal cardal)
+        public CarManager(ICarDal cardal)
         {
             _cardal = cardal;
         }
@@ -33,7 +33,7 @@ namespace Business.Concrete
 
         public Car GetById(int id)
         {
-            return _cardal.GetById(id);
+            return _cardal.Get(x => x.Id == id);
         }
 
         public Car GetCarsByBrandId(int id)
