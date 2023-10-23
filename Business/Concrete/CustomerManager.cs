@@ -1,4 +1,8 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,29 +12,42 @@ namespace Business.Concrete
 {
     public class CustomerManager : ICustomerService
     {
-        public void Add(Customer customer)
+        ICustomerDal _customerDal;
+
+        public CustomerManager(ICustomerDal customerDal)
         {
-            throw new NotImplementedException();
+            _customerDal = customerDal;
         }
 
-        public void Delete(Customer customer)
+        public IResult Add(Customer customer)
         {
-            throw new NotImplementedException();
+            _customerDal.Add(customer);
+
+            return new SuccessResult(Messages.ProductAdded);
         }
 
-        public List<Customer> GetAll()
+        public IResult Delete(Customer customer)
         {
-            throw new NotImplementedException();
+            _customerDal.Delete(customer);
+
+            return new SuccessResult(Messages.ProductDeleted);
         }
 
-        public Customer GetById(int id)
+        public IDataResult<List<Customer>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.ProductsListed);
         }
 
-        public void Update(Customer customer)
+        public IDataResult<Customer> GetById(int id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Customer>(_customerDal.Get(x => x.Id == id), Messages.ProductsListed);
+        }
+
+        public IResult Update(Customer customer)
+        {
+            _customerDal.Update(customer);
+
+            return new SuccessResult(Messages.ProductUpdated);
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -14,29 +17,34 @@ namespace Business.Concrete
         {
             _userdal = userdal;
         }
-        public void Add(User user)
+
+        public IResult Add(User user)
         {
             _userdal.Add(user);
+
+            return new SuccessResult(Messages.ProductAdded);
         }
 
-        public void Delete(User user)
+        public IResult Delete(User user)
         {
             _userdal.Delete(user);
+
+            return new SuccessResult(Messages.ProductDeleted);
         }
 
-        public List<User> GetAll()
+        public IDataResult<List<User>> GetAll()
         {
-            return _userdal.GetAll();
+            return new SuccessDataResult<List<User>>(_userdal.GetAll(), Messages.ProductsListed);
         }
 
-        public User GetById(int id)
+        public IDataResult<User> GetById(int id)
         {
-            return _userdal.Get(x => x.Id == id);
+            return new SuccessDataResult<User>(_userdal.Get(x => x.Id == id), Messages.ProductsListed);
         }
 
-        public void Update(User user)
+        public IResult Update(User user)
         {
-            _userdal.Update(user);
+            return new SuccessResult(Messages.ProductDeleted);
         }
     }
 }

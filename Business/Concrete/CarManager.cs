@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -16,39 +19,45 @@ namespace Business.Concrete
             _cardal = cardal;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             _cardal.Add(car);
+
+            return new SuccessResult(Messages.ProductAdded);
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _cardal.Delete(car);
+
+            return new SuccessResult(Messages.ProductDeleted);
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _cardal.GetAll();
+            return new SuccessDataResult<List<Car>>(_cardal.GetAll(), Messages.ProductsListed);
         }
 
-        public Car GetById(int id)
+        public IDataResult<Car> GetById(int id)
         {
-            return _cardal.Get(x => x.Id == id);
+            return new SuccessDataResult<Car>(_cardal.Get(x => x.Id == id), Messages.ProductsListed);
         }
 
-        public Car GetCarsByBrandId(int id)
+        public IDataResult<Car> GetCarsByBrandId(int id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Car>(_cardal.Get(x => x.Id == id), Messages.ProductsListed);
         }
 
-        public Car GetCarsByColorId(int id)
+        public IDataResult<Car> GetCarsByColorId(int id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Car>(_cardal.Get(x => x.Id == id), Messages.ProductsListed);
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
-            _cardal.Update(car);//Data Acces'de başka bir değişkene atıyorduk
+            _cardal.Update(car);
+
+            return new SuccessResult(Messages.ProductUpdated);
         }
     }
 }

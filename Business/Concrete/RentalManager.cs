@@ -1,4 +1,8 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,29 +12,42 @@ namespace Business.Concrete
 {
     public class RentalManager : IRentalService
     {
-        public void Add(Rental rental)
+        IRentalDal _irentaldal;
+
+        public RentalManager(IRentalDal irentaldal)
         {
-            throw new NotImplementedException();
+            _irentaldal = irentaldal;
         }
 
-        public void Delete(Rental rental)
+        public IResult Add(Rental rental)
         {
-            throw new NotImplementedException();
+            _irentaldal.Add(rental);
+
+            return new SuccessResult(Messages.ProductAdded);
         }
 
-        public List<Rental> GetAll()
+        public IResult Delete(Rental rental)
         {
-            throw new NotImplementedException();
+            _irentaldal.Delete(rental);
+
+            return new SuccessResult(Messages.ProductDeleted);
         }
 
-        public Rental GetById(int id)
+        public IDataResult<List<Rental>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Rental>>(_irentaldal.GetAll(), Messages.ProductsListed);
         }
 
-        public void Update(Rental rental)
+        public IDataResult<Rental> GetById(int id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Rental>(_irentaldal.Get(x => x.Id == id), Messages.ProductsListed);
+        }
+
+        public IResult Update(Rental rental)
+        {
+            _irentaldal.Update(rental);
+
+            return new SuccessResult(Messages.ProductUpdated);
         }
     }
 }
