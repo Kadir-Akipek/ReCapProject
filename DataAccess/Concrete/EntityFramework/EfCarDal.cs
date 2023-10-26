@@ -1,4 +1,5 @@
 ﻿using Core.DataAccess.EntityFramework;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -10,7 +11,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, RecapContext>, ICarDal
     {
-        public List<Car> GetCarDetails()
+        public IDataResult<List<Car>> GetCarDetails()
         {
             using (RecapContext context = new RecapContext())
             {
